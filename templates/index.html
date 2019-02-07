@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Магазин</h1>
+<p><em>Добро пожаловать</em></p>
+    <ul>
+    <li><strong>Товаров:</strong> {{ num_products }}</li>
+    <li><strong>Количество товаров на складе:</strong> {{ num_stocks }}</li>
+
+  </ul>
+
+{% endblock %}

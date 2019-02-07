@@ -22,6 +22,10 @@ from django.views.generic import RedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    re_path(r'^catalog/',warehouse.views.catalog ),
-    re_path(r'^$', RedirectView.as_view(url='/catalog/', permanent=True)), #пусиая адресная строка
+    re_path(r'^catalog/$',warehouse.views.catalog, name='catalog'),
+    re_path(r'^index/$', warehouse.views.index, name='index'),
+    re_path(r'^$', RedirectView.as_view(url=' index/', permanent=True)), #пусиая адресная строка
+
+    re_path(r'.*', RedirectView.as_view(url='index/', permanent=True)), #любая строка
+    path('', warehouse.views.index),
 ]

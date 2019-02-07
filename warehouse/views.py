@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import *
 import warehouse.models as mdl
+from .models import Product,Warehouse,Category
 # Create your views here.
 def catalog(request):
 #    a = mdl.Category(name='Бытовая техника')
@@ -15,3 +16,17 @@ def catalog(request):
 #    c.save()
 
     return HttpResponse("<h1> Hello world </h1>")
+
+def index(request):
+    """
+    Функция отображения для домашней страницы сайта.
+    """
+    num_products=Product.objects.all().count()  #количество товаров в базе
+    stocks = Warehouse.objects.all()
+    num_stocks = 0 #Количество товаров на складе всего
+    for tmp in stocks:
+        num_stocks += tmp.count
+
+
+    return render(request,'index.html',
+                  context={'num_products':num_products,'num_stocks':num_stocks})
