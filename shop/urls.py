@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, re_path
+from django.urls import path, re_path, include
 import warehouse.views
 import authorization_core.views
 from django.views.generic import RedirectView
@@ -22,6 +22,7 @@ from django.views.generic import RedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    re_path(r'^accounts/', include('django.contrib.auth.urls')),
     re_path(r'^products/$',warehouse.views.ProductListView.as_view(), name='products'),
     re_path(r'^products/(?P<pk>\d+)$', warehouse.views.ProductDetailView.as_view(), name='product-detail'),
     re_path(r'^index/$', warehouse.views.index, name='index'),
