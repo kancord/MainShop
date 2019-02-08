@@ -1,22 +1,8 @@
 from django.shortcuts import render
 from django.http import *
-import warehouse.models as mdl
+from django.views import generic
 from .models import Product,Warehouse,Category
 # Create your views here.
-def catalog(request):
-#    a = mdl.Category(name='Бытовая техника')
-#    a.save()
-#   b=mdl.Product(name='Пылесос №1',
-#                               decsription='Модель №1',
-#                               price=3500,
-#                               category=mdl.Category.objects.get(name='Бытовая техника'))
-#    b.save()
-#    c = mdl.warehouse(product=mdl.Product.objects.get(name='Пылесос №1'),
-#                                   count=4)
-#    c.save()
-
-    return HttpResponse("<h1> Hello world </h1>")
-
 def index(request):
     """
     Функция отображения для домашней страницы сайта.
@@ -30,3 +16,14 @@ def index(request):
 
     return render(request,'index.html',
                   context={'num_products':num_products,'num_stocks':num_stocks})
+
+class ProductListView(generic.ListView):
+    model = Product
+    context_object_name = 'Товары'
+    #queryset = Product.objects.all()
+    template_name = 'product_list.html'
+    paginate_by = 10
+
+class ProductDetailView(generic.DetailView):
+    model=Product
+    template_name = 'product_detail.html'

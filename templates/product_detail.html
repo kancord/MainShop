@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ product.name }}</h1>
+  <p><strong>Категория:</strong> {% for cat in product.category.all %} {{ cat }}{% endfor %}</p>
+  <p><strong>Название:</strong> {{ product.name }}</p>
+  <p><strong>Описание:</strong> {{ product.description }}</p>
+  <p><strong>Цена:</strong> {{ product.price }}</p>
+
+    <h4>Наличие товара:</h4>
+    <p>{{ product.warehouse_set.count }}</p>
+    <p>{{ product.category_set.count }}</p>
+    <p>{% for stock in product.warehouse_set.all %} {{ stock }}{% endfor %}</p>
+    {% for copy in product.warehouse_set.all %}
+    <hr>
+    <p> {{copy.count}}</p>
+    {% endfor %}
+{% endblock %}
