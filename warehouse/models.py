@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Category(models.Model):
     #Категория товара
@@ -39,3 +40,20 @@ class Warehouse(models.Model):
 
     class Meta:
         ordering = ['product']
+
+class Cart(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    customer = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    count = models.IntegerField()
+    date = models.DateTimeField()
+
+    def __str__(self):
+        return '{0} {1} шт  {2}'.format(self.product.name, self.count, self.date)
+
+    class Meta:
+        ordering = ['date']
+
+    def get_absolute_url(self):
+      '''Служит для формирования ссылки'''
+      from django.urls import reverse
+      return reverse('product-detail', args=[str(self.id)])

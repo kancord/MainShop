@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {% if user.is_authenticated %}
+    <h1>Список купленных товаров</h1>
+
+    {% if object_list %}
+    <ul>
+
+      {% for product in object_list %}
+      <li>
+          <p><a href="{{ product.get_absolute_url }}">{{ product.product.name }}</a>  {{ product.count }}шт {{ product.date }}</p>
+      </li>
+      {% endfor %}
+
+    </ul>
+    {% else %}
+      <p>Пусто</p>
+    {% endif %}
+  {% else %}
+    <p>Авторизуйтесь для просмотра данной страницы</p>
+  {% endif %}
+{% endblock %}

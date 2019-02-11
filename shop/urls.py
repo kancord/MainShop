@@ -23,6 +23,7 @@ from django.views.generic import RedirectView
 urlpatterns = [
     path('admin/', admin.site.urls),
     re_path(r'^accounts/', include('django.contrib.auth.urls')),
+    re_path(r'^cart/$',warehouse.views.CartListView.as_view(), name='cart'),
     re_path(r'^products/$',warehouse.views.ProductListView.as_view(), name='products'),
     re_path(r'^products/(?P<pk>\d+)$', warehouse.views.ProductDetailView.as_view(), name='product-detail'),
     re_path(r'^index/$', warehouse.views.index, name='index'),
