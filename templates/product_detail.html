@@ -9,5 +9,12 @@
 
     <h4>Наличие товара:</h4>
     <p>{{ product.warehouse.count }}</p>
-
+    {% if product.warehouse.count > 0 %}
+        <form action={{ product.get_absolute_url_for_order }} method="post">
+        {% csrf_token %}
+        <input type="submit" class="btn" value="Купить" name="BuyBtn">
+        </form>
+     {% else %}
+        <input type="submit" class="btn" value="Покупка невозможна" name="BuyBtn2">
+    {% endif %}
 {% endblock %}

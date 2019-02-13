@@ -25,6 +25,7 @@ urlpatterns = [
     re_path(r'^cart/$',warehouse.views.CartListView.as_view(), name='cart'),
     re_path(r'^products/$',warehouse.views.ProductListView.as_view(), name='products'),
     re_path(r'^products/(?P<pk>\d+)$', warehouse.views.ProductDetailView.as_view(), name='product-detail'),
+    re_path(r'^products/(?P<pk>\d+)/order$', warehouse.views.confurmOrder, name='product-order'),
     re_path(r'^index/$', warehouse.views.index, name='index'),
     #re_path(r'^$', RedirectView.as_view(url=' index/', permanent=True)), #пустая адресная строка
     #re_path(r'.*', RedirectView.as_view(url='index/', permanent=True)), #любая строка

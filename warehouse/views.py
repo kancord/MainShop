@@ -3,6 +3,7 @@ from django.http import *
 from django.views import generic
 from .models import Product,Warehouse,Category, Cart
 from .forms import SearchEngineForm
+import datetime
 # Create your views here.
 def index(request):
     """
@@ -13,8 +14,6 @@ def index(request):
     num_stocks = 0 #Количество товаров на складе всего
     for tmp in stocks:
         num_stocks += tmp.count
-
-
     return render(request,'index.html',
                   context={'num_products':num_products,'num_stocks':num_stocks})
 
@@ -56,3 +55,20 @@ class CartListView(generic.ListView):
        if self.request.user.is_active:
            return Cart.objects.filter(customer=self.request.user).order_by('date')
        return Cart.objects.none()
+
+def confurmOrder(request, pk):
+    printMessage = 'Ошибка!'
+    # Получаем запись с товаром со склада
+    curWarehouse=Warehouse.objects.get(product_id=pk)
+    if curWarehouse.count>0: #Если товар есть на складе
+        curWarehouse.count -= 1
+        curWarehouse.save(update_fields=["count"]) #Изменяем количество товара
+        newOrder=Cart()  #Формируем запись заказа
+        newOrder.product_id = pk
+        newOrder.customer = request.user
+        newOrder.count = 1
+        newOrder.date = datetime.datetime.now()
+        newOrder.save()
+        printMessage = 'Спасибо за покупку!'
+
+    return render(request, 'confurmOrder.html', context = {'printMessage':printMessage,'pk':pk})

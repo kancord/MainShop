@@ -27,6 +27,11 @@ class Product(models.Model):
       from django.urls import reverse
       return reverse('product-detail', args=[str(self.id)])
 
+    def get_absolute_url_for_order(self):
+      '''Служит для формирования ссылки для покупки товара'''
+      from django.urls import reverse
+      return reverse('product-order', args=[str(self.id)])
+
     class Meta:
         # Порядок
         ordering = ['price']

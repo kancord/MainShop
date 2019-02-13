@@ -29,7 +29,7 @@
       <ul class="sidebar-nav">
           <li><a href="{% url 'index' %}">Домашняя страница</a></li>
           <li><a href="{% url 'products' %}">Все товары</a></li>
-          <li><a href="{% url 'cart' %}">Корзина</a></li>
+          <li><a href="{% url 'cart' %}">Список покупок</a></li>
 
       </ul>
 
@@ -50,7 +50,8 @@
                   Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
               </span>
               {% if page_obj.has_next %}
-                  <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
+
+                   <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
               {% endif %}
           </span>
         </div>
