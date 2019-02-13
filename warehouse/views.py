@@ -51,6 +51,7 @@ class CartListView(generic.ListView):
     template_name = 'cart_list.html'
     paginate_by = 10
 
+
     def get_queryset(self):
        if self.request.user.is_active:
            return Cart.objects.filter(customer=self.request.user).order_by('date')
