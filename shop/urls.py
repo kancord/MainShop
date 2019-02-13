@@ -16,7 +16,6 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, re_path, include
 import warehouse.views
-import authorization_core.views
 from django.views.generic import RedirectView
 
 
@@ -27,7 +26,7 @@ urlpatterns = [
     re_path(r'^products/$',warehouse.views.ProductListView.as_view(), name='products'),
     re_path(r'^products/(?P<pk>\d+)$', warehouse.views.ProductDetailView.as_view(), name='product-detail'),
     re_path(r'^index/$', warehouse.views.index, name='index'),
-    #re_path(r'^$', RedirectView.as_view(url=' index/', permanent=True)), #пусиая адресная строка
+    #re_path(r'^$', RedirectView.as_view(url=' index/', permanent=True)), #пустая адресная строка
     #re_path(r'.*', RedirectView.as_view(url='index/', permanent=True)), #любая строка
     path('', warehouse.views.index),
 ]

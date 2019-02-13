@@ -9,6 +9,7 @@ class Category(models.Model):
         return self.name
 
     class Meta:
+        #Порядок
         ordering = ['name']
 
 class Product(models.Model):
@@ -16,7 +17,7 @@ class Product(models.Model):
     name = models.CharField(max_length=50, unique=True)
     description = models.TextField(max_length=500)
     price = models.IntegerField()
-    category =models.ForeignKey(Category, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -27,7 +28,8 @@ class Product(models.Model):
       return reverse('product-detail', args=[str(self.id)])
 
     class Meta:
-        ordering = ['name']
+        # Порядок
+        ordering = ['price']
 
 class Warehouse(models.Model):
     # Доступность на складе
@@ -39,6 +41,7 @@ class Warehouse(models.Model):
 
 
     class Meta:
+        # Порядок
         ordering = ['product']
 
 class Cart(models.Model):
@@ -51,6 +54,7 @@ class Cart(models.Model):
         return '{0} {1} шт  {2}'.format(self.product.name, self.count, self.date)
 
     class Meta:
+        # Порядок
         ordering = ['date']
 
     def get_absolute_url(self):

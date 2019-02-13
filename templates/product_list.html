@@ -2,10 +2,14 @@
 
 {% block content %}
     <h1>Список товаров</h1>
+    <form method="get" action="{% url 'products' %}">
+    <p>Фильтр: {{ filter.filter_cat }}</p>
+
+    <p><input type="submit" value="Отправить"></p>
+    </form>
 
     {% if object_list %}
     <ul>
-
       {% for product in object_list %}
       <li>
         <a href="{{ product.get_absolute_url }}">{{ product.name }}</a> ({{product.price}})
