@@ -3,7 +3,10 @@ from django.http import *
 from django.views import generic
 from .models import Product,Warehouse,Category, Cart
 from .forms import SearchEngineForm
+from .serializers import *
 import datetime
+from django.contrib.auth.models import User, Group
+from rest_framework import generics, viewsets
 # Create your views here.
 def index(request):
     """
@@ -25,6 +28,7 @@ class ProductListView(generic.ListView):
     paginate_by = 25
 
     def get_queryset(self):
+        #Фильтр категории
         filter_id = self.request.GET.get('filter_cat','')
         if (filter_id == ''):
             new_context=Product.objects.all()
@@ -72,3 +76,10 @@ def confurmOrder(request, pk):
         printMessage = 'Спасибо за покупку!'
 
     return render(request, 'confurmOrder.html', context = {'printMessage':printMessage,'pk':pk})
+
+class ProductViewSet(viewsets.ModelViewSet):
+    """
+    API for Products
+    """
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer

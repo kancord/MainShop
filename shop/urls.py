@@ -17,9 +17,16 @@ from django.contrib import admin
 from django.urls import path, re_path, include
 import warehouse.views
 from django.views.generic import RedirectView
+from django.conf.urls import url, include
+from rest_framework.urlpatterns import format_suffix_patterns
+from warehouse.serializers import *
 
+router = routers.DefaultRouter()
+router.register(r'products_api', warehouse.views.ProductViewSet)
 
 urlpatterns = [
+    path('', include(router.urls)),
+    re_path(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('admin/', admin.site.urls),
     re_path(r'^accounts/', include('django.contrib.auth.urls')),
     re_path(r'^cart/$',warehouse.views.CartListView.as_view(), name='cart'),
