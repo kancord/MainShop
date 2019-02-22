@@ -1,5 +1,17 @@
+body{
+    font-family: Verdana;
+    background: lemonchiffon;
+    font-size: 14px;
+}
 .sidebar-nav {
-    margin-top: 20px;
-    padding: 0;
+    margin-top: 10px;
+    padding: 1px 20px;
     list-style: none;
+    font-size: 11px;
+}
+
+.container-fluid{
+    padding: 12px 20px;
+    font-size: 10px;
+    font-style: italic;
 }
